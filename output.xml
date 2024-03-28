@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.10.2 on win32)" generated="2024-03-29T02:14:18.638483" rpa="false" schemaversion="5">
+<suite id="s1" name="Test Suite" source="c:\Users\Admin\OneDrive\Desktop\todos\test_suite.robot">
+<kw name="Open Todos Page" owner="browser" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:19.389056" level="INFO">Opening browser 'chrome' to base url 'https://todomvc.com/examples/react/dist/#/'.</msg>
+<arg>${url}</arg>
+<arg>browser=chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-03-29T02:14:19.381060" elapsed="3.903772"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2024-03-29T02:14:23.284832" elapsed="0.211877"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:19.353076" elapsed="4.144633"/>
+</kw>
+<test id="s1-t1" name="Scenario 1: User adds, edits and removes a to-do" line="18">
+<kw name="Add New To-do" owner="basicUI">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:23.507703" level="INFO">Typing text 'test-todo-1' into text field 'xpath://input[@class='new-todo']'.</msg>
+<arg>${text_input}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:23.502707" elapsed="0.229869"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:23.734574" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg time="2024-03-29T02:14:23.734574" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg time="2024-03-29T02:14:23.734574" level="INFO">Releasing special key ENTER.</msg>
+<arg>${None}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:23.733576" elapsed="0.118931"/>
+</kw>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:23.500708" elapsed="0.352799"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:23.861501" level="INFO">Clicking element 'xpath://a[normalize-space()='Active']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:23.860501" elapsed="0.163909"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.032405" elapsed="0.036979"/>
+</kw>
+<msg time="2024-03-29T02:14:24.069384" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.028407" elapsed="0.041975"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:24.071382" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:24.070382" elapsed="0.001999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:24.070382" elapsed="0.001999"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:23.859505" elapsed="0.212876"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:24.073381" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:24.072381" elapsed="0.002000"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:23.859505" elapsed="0.214876"/>
+</if>
+<arg>Active</arg>
+<arg>${active_page}</arg>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:23.857504" elapsed="0.216877"/>
+</kw>
+<kw name="Edit To-do" owner="basicUI">
+<kw name="Double Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:24.110358" level="INFO">Double clicking element 'xpath://label[@data-testid='todo-item-label']'.</msg>
+<arg>${saved_todo}</arg>
+<doc>Double clicks the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.109359" elapsed="0.495718"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:24.607076" level="INFO">Sending key(s) ('CTRL+A+BACKSPACE',) to page.</msg>
+<msg time="2024-03-29T02:14:24.608075" level="INFO">Pressing special key CONTROL down.</msg>
+<msg time="2024-03-29T02:14:24.608075" level="INFO">Sending key A</msg>
+<msg time="2024-03-29T02:14:24.609076" level="INFO">Pressing special key BACKSPACE down.</msg>
+<msg time="2024-03-29T02:14:24.610075" level="INFO">Releasing special key CONTROL.</msg>
+<msg time="2024-03-29T02:14:24.610075" level="INFO">Releasing special key BACKSPACE.</msg>
+<arg>${None}</arg>
+<arg>CTRL+A+BACKSPACE</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.605077" elapsed="0.058966"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:24.666045" level="INFO">Sending key(s) ('new-test-todo-1',) to page.</msg>
+<msg time="2024-03-29T02:14:24.666045" level="INFO">Sending keys new-test-todo-1</msg>
+<arg>${None}</arg>
+<arg>${new_value}</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.665044" elapsed="0.097946"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:24.763990" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg time="2024-03-29T02:14:24.764990" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg time="2024-03-29T02:14:24.764990" level="INFO">Releasing special key ENTER.</msg>
+<arg>${None}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.762990" elapsed="0.026982"/>
+</kw>
+<arg>test-todo-1</arg>
+<arg>new-test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:24.108361" elapsed="0.682610"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:24.795967" level="INFO">Clicking element 'xpath://a[normalize-space()='Active']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.794972" elapsed="0.133920"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.932893" elapsed="0.045971"/>
+</kw>
+<msg time="2024-03-29T02:14:24.978864" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.930905" elapsed="0.048958"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:24.980863" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:24.979863" elapsed="0.001999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:24.979863" elapsed="0.001999"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:24.793970" elapsed="0.187892"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:24.982861" elapsed="0.001000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:24.981862" elapsed="0.001999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:24.793970" elapsed="0.190891"/>
+</if>
+<arg>Active</arg>
+<arg>${active_page}</arg>
+<arg>new-test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:24.792970" elapsed="0.191891"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Delete To-do" owner="basicUI">
+<kw name="Mouse Over" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:24.993855" level="INFO">Simulating Mouse Over on element 'xpath://label[@data-testid='todo-item-label']'.</msg>
+<arg>${saved_todo}</arg>
+<doc>Simulates hovering the mouse over the element ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.992856" elapsed="0.354798"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:25.349653" level="INFO">Clicking element 'xpath://button[@class='destroy']'.</msg>
+<arg>${delete_btn}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:25.347654" elapsed="0.268845"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:24.990857" elapsed="0.626642"/>
+</kw>
+<arg>3x</arg>
+<arg>500ms</arg>
+<arg>Delete To-do</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2024-03-29T02:14:24.989858" elapsed="0.627641"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:25.685459" elapsed="0.001000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:25.686459" elapsed="0.000999"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:25.694455" elapsed="0.001000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:25.687458" elapsed="0.008996"/>
+</branch>
+<status status="NOT RUN" start="2024-03-29T02:14:25.687458" elapsed="0.009995"/>
+</if>
+<status status="NOT RUN" start="2024-03-29T02:14:25.684460" elapsed="0.012993"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:25.792399" level="INFO">Current page does not contain element 'xpath://label[@data-testid='todo-item-label']'.</msg>
+<arg>${saved_todo}</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:25.700452" elapsed="0.092946"/>
+</kw>
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="PASS" start="2024-03-29T02:14:25.698453" elapsed="0.094945"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:25.697453" elapsed="0.096946"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:25.684460" elapsed="0.109939"/>
+</if>
+<arg>Delete</arg>
+<status status="PASS" start="2024-03-29T02:14:25.683463" elapsed="0.110936"/>
+</kw>
+<kw name="Clear Cache" type="TEARDOWN">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:31.205307" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-13.png"&gt;&lt;img src="selenium-screenshot-13.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-03-29T02:14:31.205307" level="FAIL">Element 'xpath://span[@class="todo-count"]' did not appear in 5 seconds.</msg>
+<arg>${todo_count}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="FAIL" start="2024-03-29T02:14:25.806391" elapsed="5.402914">Element 'xpath://span[@class="todo-count"]' did not appear in 5 seconds.</status>
+</kw>
+<msg time="2024-03-29T02:14:31.210306" level="INFO">${status} = False</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${todo_count}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:25.805392" elapsed="5.405913"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;True&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${all_page}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:31.213303" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<arg>3x</arg>
+<arg>500ms</arg>
+<arg>Delete To-do</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:31.214303" elapsed="0.000999"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:31.212303" elapsed="0.002999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:31.212303" elapsed="0.003998"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:25.804392" elapsed="5.411909"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:23.497709" elapsed="7.750574"/>
+</test>
+<test id="s1-t2" name="Scenario 2: User adds and sets a to-do to complete" line="27">
+<kw name="Add New To-do" owner="basicUI">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:31.567101" level="INFO">Typing text 'test-todo-1' into text field 'xpath://input[@class='new-todo']'.</msg>
+<arg>${text_input}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:31.565104" elapsed="0.310821"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:31.878924" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg time="2024-03-29T02:14:31.879926" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg time="2024-03-29T02:14:31.879926" level="INFO">Releasing special key ENTER.</msg>
+<arg>${None}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:31.876924" elapsed="0.025988"/>
+</kw>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:31.564103" elapsed="0.340818"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:31.930893" level="INFO">Clicking element 'xpath://a[normalize-space()='Active']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:31.929894" elapsed="0.198887"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.131779" elapsed="0.022986"/>
+</kw>
+<msg time="2024-03-29T02:14:32.155766" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.129780" elapsed="0.025986"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:32.158764" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:32.156767" elapsed="0.002997"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:32.156767" elapsed="0.002997"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:31.928894" elapsed="0.230870"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:32.160763" elapsed="0.000999"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:32.160763" elapsed="0.000999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:31.928894" elapsed="0.232868"/>
+</if>
+<arg>Active</arg>
+<arg>${active_page}</arg>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:31.926896" elapsed="0.234866"/>
+</kw>
+<kw name="Select To-do" owner="basicUI">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:32.173756" level="INFO">Clicking element 'xpath://input[@class='toggle']'.</msg>
+<arg>${select_toggle}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.172757" elapsed="0.141918"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:32.170769" elapsed="0.144905"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:32.373641" level="INFO">Clicking element 'xpath://a[normalize-space()='Completed']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.370644" elapsed="0.165903"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.538546" elapsed="0.023987"/>
+</kw>
+<msg time="2024-03-29T02:14:32.562533" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.537556" elapsed="0.025977"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:32.564533" elapsed="0.001002"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:32.563533" elapsed="0.002002"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:32.563533" elapsed="0.002002"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:32.369644" elapsed="0.196889"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:32.567531" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:32.566533" elapsed="0.001997"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:32.369644" elapsed="0.198886"/>
+</if>
+<arg>Complete</arg>
+<arg>${complete_page}</arg>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:32.367644" elapsed="0.200886"/>
+</kw>
+<kw name="Clear Cache" type="TEARDOWN">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${todo_count}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.586519" elapsed="0.018990"/>
+</kw>
+<msg time="2024-03-29T02:14:32.606509" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${todo_count}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.584521" elapsed="0.021988"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;True&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:32.609506" level="INFO">Clicking element 'xpath://a[normalize-space()='All']'.</msg>
+<arg>${all_page}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.608507" elapsed="0.120931"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Delete To-do" owner="basicUI">
+<kw name="Mouse Over" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:32.737435" level="INFO">Simulating Mouse Over on element 'xpath://label[@data-testid='todo-item-label']'.</msg>
+<arg>${saved_todo}</arg>
+<doc>Simulates hovering the mouse over the element ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.736444" elapsed="0.325804"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:33.064247" level="INFO">Clicking element 'xpath://button[@class='destroy']'.</msg>
+<arg>${delete_btn}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:33.063249" elapsed="0.266846"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:32.734436" elapsed="0.595659"/>
+</kw>
+<arg>3x</arg>
+<arg>500ms</arg>
+<arg>Delete To-do</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2024-03-29T02:14:32.733446" elapsed="0.599657"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:32.607507" elapsed="0.726585"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:32.607507" elapsed="0.727585"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:32.582521" elapsed="0.752571"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:31.506148" elapsed="1.869920"/>
+</test>
+<test id="s1-t3" name="Scenario 3: User sets a completed to-do to active" line="33">
+<kw name="Add New To-do" owner="basicUI">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:33.402053" level="INFO">Typing text 'test-todo-1' into text field 'xpath://input[@class='new-todo']'.</msg>
+<arg>${text_input}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:33.401054" elapsed="0.456741"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:33.860791" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg time="2024-03-29T02:14:33.860791" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg time="2024-03-29T02:14:33.861791" level="INFO">Releasing special key ENTER.</msg>
+<arg>${None}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:33.858791" elapsed="0.030984"/>
+</kw>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:33.400055" elapsed="0.490719"/>
+</kw>
+<kw name="Select To-do" owner="basicUI">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:33.897770" level="INFO">Clicking element 'xpath://input[@class='toggle']'.</msg>
+<arg>${select_toggle}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:33.896771" elapsed="0.314821"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:33.895772" elapsed="0.316821"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:34.256564" level="INFO">Clicking element 'xpath://a[normalize-space()='Completed']'.</msg>
+<arg>${complete_page}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:34.255565" elapsed="0.289835"/>
+</kw>
+<kw name="Select To-do" owner="basicUI">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:34.606366" level="INFO">Clicking element 'xpath://input[@class='toggle']'.</msg>
+<arg>${select_toggle}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:34.605366" elapsed="0.203885"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:34.604367" elapsed="0.204884"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:34.898198" level="INFO">Clicking element 'xpath://a[normalize-space()='Active']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:34.897201" elapsed="0.386779"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:35.285978" elapsed="0.029983"/>
+</kw>
+<msg time="2024-03-29T02:14:35.316960" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:35.284978" elapsed="0.031982"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:35.319959" elapsed="0.001000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:35.317959" elapsed="0.003000"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:35.316960" elapsed="0.004998"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:34.896199" elapsed="0.425759"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:35.322956" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:35.321958" elapsed="0.001998"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:34.896199" elapsed="0.427757"/>
+</if>
+<arg>Active</arg>
+<arg>${active_page}</arg>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:34.895200" elapsed="0.428756"/>
+</kw>
+<kw name="Clear Cache" type="TEARDOWN">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${todo_count}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:35.347943" elapsed="0.124928"/>
+</kw>
+<msg time="2024-03-29T02:14:35.473873" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${todo_count}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:35.346945" elapsed="0.126928"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;True&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:35.476869" level="INFO">Clicking element 'xpath://a[normalize-space()='All']'.</msg>
+<arg>${all_page}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:35.475869" elapsed="0.358797"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Delete To-do" owner="basicUI">
+<kw name="Mouse Over" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:35.841660" level="INFO">Simulating Mouse Over on element 'xpath://label[@data-testid='todo-item-label']'.</msg>
+<arg>${saved_todo}</arg>
+<doc>Simulates hovering the mouse over the element ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:35.839661" elapsed="0.314821"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:36.156481" level="INFO">Clicking element 'xpath://button[@class='destroy']'.</msg>
+<arg>${delete_btn}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:36.155481" elapsed="0.164906"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:35.837662" elapsed="0.484724"/>
+</kw>
+<arg>3x</arg>
+<arg>500ms</arg>
+<arg>Delete To-do</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2024-03-29T02:14:35.835664" elapsed="0.486722"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:35.474870" elapsed="0.848518"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:35.474870" elapsed="0.849515"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:35.343945" elapsed="0.980440"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:33.380067" elapsed="2.966304"/>
+</test>
+<test id="s1-t4" name="Scenario 4: User adds todos and sets all todos to complete" line="40">
+<kw name="Add New To-do" owner="basicUI">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:36.462305" level="INFO">Typing text 'test-todo-1' into text field 'xpath://input[@class='new-todo']'.</msg>
+<arg>${text_input}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:36.461307" elapsed="0.235865"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:36.699171" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg time="2024-03-29T02:14:36.700170" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg time="2024-03-29T02:14:36.700170" level="INFO">Releasing special key ENTER.</msg>
+<arg>${None}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:36.698171" elapsed="0.018989"/>
+</kw>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:36.460308" elapsed="0.258853"/>
+</kw>
+<kw name="Add New To-do" owner="basicUI">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:36.735151" level="INFO">Typing text 'test-todo-2' into text field 'xpath://input[@class='new-todo']'.</msg>
+<arg>${text_input}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:36.733153" elapsed="0.202882"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:36.939033" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg time="2024-03-29T02:14:36.939033" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg time="2024-03-29T02:14:36.940034" level="INFO">Releasing special key ENTER.</msg>
+<arg>${None}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:36.937037" elapsed="0.023985"/>
+</kw>
+<arg>test-todo-2</arg>
+<status status="PASS" start="2024-03-29T02:14:36.731153" elapsed="0.230868"/>
+</kw>
+<kw name="Add New To-do" owner="basicUI">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:37.114933" level="INFO">Typing text 'test-todo-3' into text field 'xpath://input[@class='new-todo']'.</msg>
+<arg>${text_input}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:37.113934" elapsed="0.394777"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:37.510707" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg time="2024-03-29T02:14:37.511708" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg time="2024-03-29T02:14:37.511708" level="INFO">Releasing special key ENTER.</msg>
+<arg>${None}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:37.509708" elapsed="0.017989"/>
+</kw>
+<arg>test-todo-3</arg>
+<status status="PASS" start="2024-03-29T02:14:37.112935" elapsed="0.414762"/>
+</kw>
+<kw name="Select All Todos" owner="basicUI">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:37.572673" level="INFO">Clicking element 'xpath://input[@class='toggle-all']'.</msg>
+<arg>${select_all_toggle}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:37.570672" elapsed="0.138922"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:37.568674" elapsed="0.140920"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:37.730581" level="INFO">Clicking element 'xpath://a[normalize-space()='Completed']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:37.729583" elapsed="0.186893"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:37.924471" elapsed="0.029983"/>
+</kw>
+<msg time="2024-03-29T02:14:37.954454" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:37.923472" elapsed="0.031981"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:37.957452" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:37.956454" elapsed="0.003996"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:37.956454" elapsed="0.003996"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:37.728584" elapsed="0.232868"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:37.962449" elapsed="0.001002"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:37.961452" elapsed="0.001999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:37.728584" elapsed="0.235866"/>
+</if>
+<arg>Complete</arg>
+<arg>${complete_page}</arg>
+<arg>test-todo-1</arg>
+<status status="PASS" start="2024-03-29T02:14:37.727584" elapsed="0.236866"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:38.059393" level="INFO">Clicking element 'xpath://a[normalize-space()='Completed']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.058394" elapsed="0.150915"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.211310" elapsed="0.026981"/>
+</kw>
+<msg time="2024-03-29T02:14:38.239292" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.210308" elapsed="0.029982"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:38.241290" elapsed="0.000999"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:38.240290" elapsed="0.001999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:38.240290" elapsed="0.001999"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:38.057395" elapsed="0.185894"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:38.243289" elapsed="0.000999"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:38.243289" elapsed="0.000999"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:38.057395" elapsed="0.187894"/>
+</if>
+<arg>Complete</arg>
+<arg>${complete_page}</arg>
+<arg>test-todo-2</arg>
+<status status="PASS" start="2024-03-29T02:14:38.051398" elapsed="0.193891"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:38.282267" level="INFO">Clicking element 'xpath://a[normalize-space()='Completed']'.</msg>
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.281268" elapsed="0.115933"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.401198" elapsed="0.022987"/>
+</kw>
+<msg time="2024-03-29T02:14:38.425185" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.400200" elapsed="0.024985"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:38.427184" elapsed="0.000999"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:38.426186" elapsed="0.001997"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:38.426186" elapsed="0.001997"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:38.280267" elapsed="0.147916"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:38.429182" elapsed="0.001000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:38.429182" elapsed="0.001000"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:38.280267" elapsed="0.149915"/>
+</if>
+<arg>Complete</arg>
+<arg>${complete_page}</arg>
+<arg>test-todo-3</arg>
+<status status="PASS" start="2024-03-29T02:14:38.278268" elapsed="0.151914"/>
+</kw>
+<kw name="Clear All Todos" owner="basicUI">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:38.440180" level="INFO">Clicking button 'xpath://button[@class='clear-completed']'.</msg>
+<arg>${clear_btn}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.438180" elapsed="0.136919"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:38.436179" elapsed="0.139919"/>
+</kw>
+<kw name="Verify To-do State">
+<if>
+<branch type="IF" condition="&quot;${state}&quot; == &quot;Active&quot; or &quot;${state}&quot; == &quot;Complete&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:38.602084" elapsed="0.000999"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>xpath://label[@data-testid='todo-item-label' and contains(normalize-space(), '${value}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:38.603083" elapsed="0.001000"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;False&quot;">
+<kw name="Fail" owner="BuiltIn">
+<arg>The to-do is not saved/updated/completed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:38.605082" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:38.604083" elapsed="0.002001"/>
+</branch>
+<status status="NOT RUN" start="2024-03-29T02:14:38.604083" elapsed="0.002001"/>
+</if>
+<status status="NOT RUN" start="2024-03-29T02:14:38.602084" elapsed="0.004000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Run Keyword And Warn On Failure" owner="BuiltIn">
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:38.683038" level="INFO">Current page does not contain element 'xpath://label[@data-testid='todo-item-label']'.</msg>
+<arg>${saved_todo}</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.608083" elapsed="0.075954"/>
+</kw>
+<arg>Page Should Not Contain Element</arg>
+<arg>${saved_todo}</arg>
+<doc>Runs the specified keyword logs a warning if the keyword fails.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.607081" elapsed="0.076956"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:38.606084" elapsed="0.078952"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:38.602084" elapsed="0.082952"/>
+</if>
+<arg>Clear</arg>
+<status status="PASS" start="2024-03-29T02:14:38.600085" elapsed="0.084951"/>
+</kw>
+<kw name="Clear Cache" type="TEARDOWN">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<msg time="2024-03-29T02:14:44.128928" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-14.png"&gt;&lt;img src="selenium-screenshot-14.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-03-29T02:14:44.129928" level="FAIL">Element 'xpath://span[@class="todo-count"]' did not appear in 5 seconds.</msg>
+<arg>${todo_count}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="FAIL" start="2024-03-29T02:14:38.696032" elapsed="5.434894">Element 'xpath://span[@class="todo-count"]' did not appear in 5 seconds.</status>
+</kw>
+<msg time="2024-03-29T02:14:44.131929" level="INFO">${status} = False</msg>
+<var>${status}</var>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${todo_count}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-03-29T02:14:38.695032" elapsed="5.436897"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;True&quot;">
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${all_page}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:44.134924" elapsed="0.001000"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<arg>3x</arg>
+<arg>500ms</arg>
+<arg>Delete To-do</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" start="2024-03-29T02:14:44.136923" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-03-29T02:14:44.133929" elapsed="0.003995"/>
+</branch>
+<status status="PASS" start="2024-03-29T02:14:44.133929" elapsed="0.003995"/>
+</if>
+<status status="PASS" start="2024-03-29T02:14:38.693034" elapsed="5.444890"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:36.436322" elapsed="7.715592"/>
+</test>
+<kw name="Close Todos Page" owner="browser" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-03-29T02:14:44.161910" elapsed="3.533980"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:44.160911" elapsed="3.535979"/>
+</kw>
+<status status="PASS" start="2024-03-29T02:14:18.647479" elapsed="29.049411"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="4" fail="0" skip="0" id="s1" name="Test Suite">Test Suite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
