@@ -1,7 +1,7 @@
 *** Settings ***
 Library    SeleniumLibrary
-Resource    browser.resource
-Resource    basicUI.resource
+Resource    infrastructure/browser.resource
+Resource    infrastructure/basicUI.resource
 
 Suite Setup    Open Todos Page
 Suite Teardown    Close Todos Page
